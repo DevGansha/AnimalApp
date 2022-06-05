@@ -58,10 +58,9 @@ class AnimalsAdapter(val context: Context, val recyclerViewHome: RecyclerViewHom
         return items.size
     }
 
-    fun submitList(itemList: Array<AnimalDetail>, fav_selected: Int){
+    fun submitList(itemList: Array<AnimalDetail>){
         //items.addAll(itemList)
         items = itemList
-        favSelected = fav_selected
         notifyDataSetChanged()
     }
 

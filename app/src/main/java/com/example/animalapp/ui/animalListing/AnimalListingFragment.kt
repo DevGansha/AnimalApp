@@ -71,7 +71,7 @@ class AnimalListingFragment : Fragment(), RecyclerViewHomeClickListener{
                     fragmentAnimalListingBinding.errorTxt.visibility = View.GONE
 
                     val data = it.data
-                    animalsAdapter.submitList(data!!, fav_state)
+                    animalsAdapter.submitList(data!!)
                 }
                 is Resource.Error -> {
                     fragmentAnimalListingBinding.progress.visibility = View.GONE
