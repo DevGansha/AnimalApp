@@ -4,15 +4,16 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animalapp.data.model.AnimalDetail
 import com.example.animalapp.databinding.LiAnimalBinding
 
 class AnimalsAdapter(val context: Context, val recyclerViewHome: RecyclerViewHomeClickListener) : RecyclerView.Adapter<ViewHolder>(){
-    private lateinit var recyclerView: RecyclerView
 
-    var items: List<AnimalDetail> = ArrayList()
+    private lateinit var recyclerView: RecyclerView
+    var items: Array<AnimalDetail> = arrayOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -35,6 +36,10 @@ class AnimalsAdapter(val context: Context, val recyclerViewHome: RecyclerViewHom
                 holder.itemView
             )
         }
+        holder.binding.fabFav.setOnClickListener {
+            recyclerViewHome.clickFav(item)
+        }
+
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
@@ -46,7 +51,7 @@ class AnimalsAdapter(val context: Context, val recyclerViewHome: RecyclerViewHom
         return items.size
     }
 
-    fun submitList(itemList: List<AnimalDetail>){
+    fun submitList(itemList: Array<AnimalDetail>){
         //items.addAll(itemList)
         items = itemList
         notifyDataSetChanged()
@@ -55,7 +60,7 @@ class AnimalsAdapter(val context: Context, val recyclerViewHome: RecyclerViewHom
     private fun isLinearLayoutManager() = recyclerView.layoutManager is LinearLayoutManager
 }
 
-class ViewHolder(private val binding: LiAnimalBinding) : RecyclerView.ViewHolder(binding.root) {
+class ViewHolder(val binding: LiAnimalBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(data: AnimalDetail, isLinearLayoutManager: Boolean) {
         binding.apply {
             animal = data
@@ -65,6 +70,7 @@ class ViewHolder(private val binding: LiAnimalBinding) : RecyclerView.ViewHolder
 }
 interface RecyclerViewHomeClickListener {
     fun clickOnItem(data: AnimalDetail, card: View)
+    fun clickFav(data: AnimalDetail)
 }
 
 

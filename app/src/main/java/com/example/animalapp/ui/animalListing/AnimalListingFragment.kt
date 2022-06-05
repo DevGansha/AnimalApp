@@ -21,7 +21,7 @@ class AnimalListingFragment : Fragment(), RecyclerViewHomeClickListener{
 
     val animalsListingViewModels: AnimalListingViewModel by viewModels()
     lateinit var fragmentAnimalListingBinding: FragmentAnimalListingBinding
-    private val productsAdapter: AnimalsAdapter by lazy { AnimalsAdapter(requireContext(), this) }
+    private val animalsAdapter: AnimalsAdapter by lazy { AnimalsAdapter(requireContext(), this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +40,9 @@ class AnimalListingFragment : Fragment(), RecyclerViewHomeClickListener{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        fragmentAnimalListingBinding.recyclerView.apply {
+            adapter = animalsAdapter
+        }
         animalsListingViewModels.fetchAnimals()
         observeUI()
     }
@@ -50,7 +53,7 @@ class AnimalListingFragment : Fragment(), RecyclerViewHomeClickListener{
                 is Resource.Success -> {
                     fragmentAnimalListingBinding.progress.visibility = View.GONE
                     val data = it.data
-                    //productsAdapter.submitList(data!!)
+                    animalsAdapter.submitList(data!!)
                 }
                 is Resource.Error -> {
                     fragmentAnimalListingBinding.progress.visibility = View.GONE
@@ -69,7 +72,11 @@ class AnimalListingFragment : Fragment(), RecyclerViewHomeClickListener{
     override fun clickOnItem(data: AnimalDetail, card: View) {
         val bundle = Bundle()
         bundle.putString("AnimalID", data.id)
-        //Navigation.findNavController(card).navigate(R.id.action_productListingFragment_to_productDetailFragment, bundle)
-        // context?.toast(data.toString())
+        Navigation.findNavController(card).navigate(R.id.action_animalListingFragment_to_animalDetailFragment, bundle)
+        context?.toast(data.toString())
+    }
+
+    override fun clickFav(animalDetail: AnimalDetail) {
+        animalsListingViewModels.addAnimalAsFav(animalDetail)
     }
 }

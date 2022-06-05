@@ -9,5 +9,18 @@
         android:id="@+id/animalListingFragment"
         android:name="com.example.animalapp.ui.animalListing.AnimalListingFragment"
         android:label="fragment_animal_listing"
-        tools:layout="@layout/fragment_animal_listing" />
+        tools:layout="@layout/fragment_animal_listing" >
+        <action
+            android:id="@+id/action_animalListingFragment_to_animalDetailFragment"
+            app:destination="@id/animalDetailFragment" >
+            <argument
+                android:name="animal_id"
+                app:argType="string" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/animalDetailFragment"
+        android:name="com.example.animalapp.ui.animalDetail.AnimalDetailFragment"
+        android:label="AnimalDetailFragment"
+        tools:layout="@layout/fr_animal_detail_screen"/>
 </navigation>

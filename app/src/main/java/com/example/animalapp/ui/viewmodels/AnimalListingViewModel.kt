@@ -1,9 +1,12 @@
 package com.example.animalapp.ui.viewmodels
 
 import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.animalapp.data.local.entity.AnimalDetailTable
+import com.example.animalapp.data.local.entity.BreedTable
 import com.example.animalapp.data.model.AnimalDetail
 import com.example.animalapp.data.repository.AnimalRepo
 import com.example.animalapp.util.Resource
@@ -21,7 +24,7 @@ class AnimalListingViewModel  @Inject constructor(
     @ApplicationContext private val context: Context
 ) : ViewModel() {
 
-    val animalList: MutableLiveData<Resource<AnimalDetail>> = MutableLiveData()
+    val animalList: MutableLiveData<Resource<Array<AnimalDetail>>> = MutableLiveData()
 
     init {
         fetchAnimals()
@@ -35,7 +38,7 @@ class AnimalListingViewModel  @Inject constructor(
                     val response = animalRepo.fetchAnimals()
 
                     if (response.isSuccessful) {
-                        animalList.postValue(Resource.Success(response.body()!!))
+                       animalList.postValue(Resource.Success(response.body()!!))
                     } else{
                         animalList.postValue(Resource.Error(response.message()))
                     }
@@ -50,5 +53,35 @@ class AnimalListingViewModel  @Inject constructor(
                 }
             }
         }
+    }
+
+    fun addAnimalAsFav(animalDetail: AnimalDetail){
+       viewModelScope.launch {
+           animalDetail.breed.let {
+               var animalBreed = BreedTable(
+                   id = it.id,
+                   name = it.name,
+                   description = it.description
+               )
+               val s: Long = animalRepo.saveBreed(animalBreed)
+               //Toast.makeText(this@AnimalListingViewModel.context, s.toString(), Toast.LENGTH_SHORT).show()
+           }
+
+           var breedId = animalRepo.getBreedId(animalDetail.breed.id)
+
+           var animalDetailTable = AnimalDetailTable(
+               id = animalDetail.id,
+               name = animalDetail.name,
+               description = animalDetail.description,
+               imageUrl = animalDetail.imageUrl,
+               kind = animalDetail.kind,
+               age = animalDetail.age,
+               breed = breedId )
+
+           animalDetailTable.let {
+               //val sucess : Long =
+               animalRepo.saveAnimalAsFav(it)
+           }
+       }
     }
 }

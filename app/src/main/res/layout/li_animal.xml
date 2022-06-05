@@ -29,19 +29,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/thumbnail"
+                <FrameLayout
+                    android:id="@+id/frameLL"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/product_cover_height"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:scaleType="fitXY"
-                    app:imageFromUrl="@{animal.imageUrl}" />
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/thumbnail"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/product_cover_height"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:scaleType="fitXY"
+                        app:imageFromUrl="@{animal.imageUrl}" />
+
+                    <ImageButton
+                        android:id="@+id/fabFav"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="right"
+                        android:backgroundTint="@android:color/transparent"
+                        android:src="@mipmap/white_heart" />
+
+                </FrameLayout>
 
                 <TextView
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/thumbnail"
+                    android:layout_below="@+id/frameLL"
                     android:paddingLeft="@dimen/product_title_padding"
                     android:paddingRight="@dimen/product_title_padding"
                     android:paddingTop="@dimen/product_title_padding"
