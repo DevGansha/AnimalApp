@@ -57,6 +57,7 @@ class AnimalListingViewModel  @Inject constructor(
 
     fun addAnimalAsFav(animalDetail: AnimalDetail){
        viewModelScope.launch {
+           lateinit var animalBreed : BreedTable
            animalDetail.breed.let {
                var animalBreed = BreedTable(
                    id = it.id,
@@ -76,7 +77,7 @@ class AnimalListingViewModel  @Inject constructor(
                imageUrl = animalDetail.imageUrl,
                kind = animalDetail.kind,
                age = animalDetail.age,
-               breed = breedId )
+               breed = animalBreed )
 
            animalDetailTable.let {
                //val sucess : Long =

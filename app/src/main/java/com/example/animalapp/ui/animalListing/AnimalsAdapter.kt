@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.animalapp.R
 import com.example.animalapp.data.model.AnimalDetail
 import com.example.animalapp.databinding.LiAnimalBinding
 
@@ -37,6 +38,7 @@ class AnimalsAdapter(val context: Context, val recyclerViewHome: RecyclerViewHom
             )
         }
         holder.binding.fabFav.setOnClickListener {
+            holder.binding.fabFav.setImageResource(R.mipmap.heart_filled)
             recyclerViewHome.clickFav(item)
         }
 
