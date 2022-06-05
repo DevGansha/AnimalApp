@@ -30,6 +30,7 @@ class AnimalListingViewModel  @Inject constructor(
     init {
         fetchAnimals()
     }
+
     fun fetchAnimals(){
         animalList.postValue(Resource.Loading())
 
@@ -60,7 +61,7 @@ class AnimalListingViewModel  @Inject constructor(
        viewModelScope.launch {
            lateinit var animalBreed : BreedTable
            animalDetail.breed.let {
-               var animalBreed = BreedTable(
+               animalBreed = BreedTable(
                    id = it.id,
                    name = it.name,
                    description = it.description
@@ -113,7 +114,8 @@ class AnimalListingViewModel  @Inject constructor(
                                         description = it.breedTable.description,
                                         name = it.breedTable.name
                                     ),
-                                    age = it.animalDetailTable.age
+                                    age = it.animalDetailTable.age,
+                                    isFav = 1
                                 )
                             )
                         }

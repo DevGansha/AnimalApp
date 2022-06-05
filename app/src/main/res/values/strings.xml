@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">AnimalApp</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="animal_id">Animal ID</string>
+    <string name="animal_name">Animal Name</string>
+    <string name="animal_kind">Animal Kind</string>
+    <string name="breed">Breed</string>
+    <string name="breed_id">Breed ID</string>
+    <string name="breed_name">Breed Name</string>
+    <string name="breed_desc">Breed Description</string>
+    <string name="animal_description">Animal Description</string>
+    <string name="age">Animal Age</string>
+    <string name="animal_image">Animal Image</string>
 </resources>

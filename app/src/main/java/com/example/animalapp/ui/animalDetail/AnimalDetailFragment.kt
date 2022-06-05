@@ -45,10 +45,10 @@ class AnimalDetailFragment: Fragment() {
                 is Resource.Success -> {
                     frAnimalDetailScreenBinding.apply {
                         progress.visibility= View.GONE
-                         productTitle.visibility = View.VISIBLE
-                        itemDescription.visibility = View.VISIBLE
-                        productPrice.visibility = View.VISIBLE
-                        productBrandName.visibility = View.VISIBLE
+                        animalName.visibility = View.VISIBLE
+                        animalKind.visibility = View.VISIBLE
+                        animalAge.visibility = View.VISIBLE
+                        animalDesc.visibility = View.VISIBLE
                         animal = it.data
                     }
                 }
@@ -59,10 +59,10 @@ class AnimalDetailFragment: Fragment() {
                 is Resource.Loading -> {
                     frAnimalDetailScreenBinding.apply {
                         progress.visibility= View.VISIBLE
-                        productTitle.visibility = View.GONE
-                        itemDescription.visibility = View.GONE
-                        productPrice.visibility = View.GONE
-                        productBrandName.visibility = View.GONE
+                        animalName.visibility = View.GONE
+                        animalKind.visibility = View.GONE
+                        animalAge.visibility = View.GONE
+                        animalDesc.visibility = View.GONE
                     }
                 }
             }

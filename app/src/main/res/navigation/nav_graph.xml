@@ -17,10 +17,18 @@
                 android:name="animal_id"
                 app:argType="string" />
         </action>
+        <action
+            android:id="@+id/action_animalListingFragment_to_newAnimalFragment"
+            app:destination="@id/newAnimalFragment" />
     </fragment>
     <fragment
         android:id="@+id/animalDetailFragment"
         android:name="com.example.animalapp.ui.animalDetail.AnimalDetailFragment"
         android:label="AnimalDetailFragment"
         tools:layout="@layout/fr_animal_detail_screen"/>
+    <fragment
+        android:id="@+id/newAnimalFragment"
+        android:name="com.example.animalapp.ui.newAnimal.NewAnimalFragment"
+        android:label="NewAnimalFragment"
+        tools:layout="@layout/fr_new_animal"/>
 </navigation>

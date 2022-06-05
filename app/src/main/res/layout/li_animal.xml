@@ -8,6 +8,9 @@
         <variable
             name="animal"
             type="com.example.animalapp.data.model.AnimalDetail" />
+        <variable
+            name="fav_state"
+            type="Integer" />
     </data>
 
     <LinearLayout
@@ -23,7 +26,7 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/card_margin"
             android:elevation="3dp"
-            app:cardCornerRadius="@dimen/card_product_radius">
+            app:cardCornerRadius="@dimen/card_animal_radius">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -37,7 +40,7 @@
                     <ImageView
                         android:id="@+id/thumbnail"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/product_cover_height"
+                        android:layout_height="@dimen/animal_cover_height"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:scaleType="fitXY"
                         app:imageFromUrl="@{animal.imageUrl}" />
@@ -48,7 +51,7 @@
                         android:layout_height="48dp"
                         android:layout_gravity="right"
                         android:backgroundTint="@android:color/transparent"
-                        android:src="@mipmap/white_heart" />
+                        app:colorImgChange="@{animal.isFav}" />
 
                 </FrameLayout>
 
@@ -57,25 +60,49 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/frameLL"
-                    android:paddingLeft="@dimen/product_title_padding"
-                    android:paddingRight="@dimen/product_title_padding"
-                    android:paddingTop="@dimen/product_title_padding"
+                    android:paddingLeft="@dimen/animal_title_padding"
+                    android:paddingRight="@dimen/animal_title_padding"
+                    android:paddingTop="@dimen/animal_title_padding"
                     android:text="@{animal.name}"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:textSize="@dimen/product_title"/>
+                    android:textSize="@dimen/animal_title"/>
 
                 <TextView
-                    android:id="@+id/subtitle"
+                    android:id="@+id/animalKind"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/title"
-                    android:paddingLeft="@dimen/product_title_padding"
-                    android:paddingRight="@dimen/product_title_padding"
-                    android:paddingTop="@dimen/product_title_padding"
+                    android:paddingLeft="@dimen/animal_title_padding"
+                    android:paddingRight="@dimen/animal_title_padding"
+                    android:paddingTop="@dimen/animal_title_padding"
                     android:text="@{animal.kind}"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/product_title"/>
+                    android:textSize="@dimen/animal_title"/>
+
+                <TextView
+                    android:id="@+id/animalAge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/animalKind"
+                    android:paddingLeft="@dimen/animal_title_padding"
+                    android:paddingRight="@dimen/animal_title_padding"
+                    android:paddingTop="@dimen/animal_title_padding"
+                    app:bindValue='@{animal.age}'
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/animal_title"/>
+
+                <TextView
+                    android:id="@+id/animalbreed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/animalAge"
+                    android:paddingLeft="@dimen/animal_title_padding"
+                    android:paddingRight="@dimen/animal_title_padding"
+                    android:paddingTop="@dimen/animal_title_padding"
+                    android:text='@{animal.breed.name}'
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/animal_title"/>
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>

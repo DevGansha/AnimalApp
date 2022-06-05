@@ -1,13 +1,8 @@
 package com.example.animalapp.data.model
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-data class AnimalDetail(
-    @SerializedName("id")
-    var id: String,
+data class AnimalDetailRequest(
     @SerializedName("name")
     var name: String,
     @SerializedName("kind")
@@ -19,7 +14,5 @@ data class AnimalDetail(
     @SerializedName("age")
     var age: Int,
     @SerializedName("imageUrl")
-    var imageUrl: String,
-
-    var isFav: Int = 0
+    var imageUrl: String
 )

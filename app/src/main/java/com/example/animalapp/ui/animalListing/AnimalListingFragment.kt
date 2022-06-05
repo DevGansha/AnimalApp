@@ -47,18 +47,18 @@ class AnimalListingFragment : Fragment(), RecyclerViewHomeClickListener{
 
         fragmentAnimalListingBinding.fabRefresh.setOnClickListener {
             if(fav_state == 0){
-                fav_state = 1
-                fragmentAnimalListingBinding.fabRefresh.setImageResource(R.mipmap.white_heart)
-                animalsListingViewModels.fetchAnimals()
-            }else {
-                fav_state = 0
                 fragmentAnimalListingBinding.fabRefresh.setImageResource(R.mipmap.heart_filled)
                 animalsListingViewModels.getAllFavourites()
+                fav_state = 1
+            }else {
+                fragmentAnimalListingBinding.fabRefresh.setImageResource(R.mipmap.white_heart)
+                animalsListingViewModels.fetchAnimals()
+                fav_state = 0
             }
         }
 
         fragmentAnimalListingBinding.fabNewAnimal.setOnClickListener {
-
+            Navigation.findNavController(it).navigate(R.id.action_animalListingFragment_to_newAnimalFragment)
         }
     }
 
@@ -95,7 +95,6 @@ class AnimalListingFragment : Fragment(), RecyclerViewHomeClickListener{
         val bundle = Bundle()
         bundle.putString("AnimalID", data.id)
         Navigation.findNavController(card).navigate(R.id.action_animalListingFragment_to_animalDetailFragment, bundle)
-        context?.toast(data.toString())
     }
 
     override fun clickFav(animalDetail: AnimalDetail) {
