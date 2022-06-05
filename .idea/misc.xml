@@ -3,10 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/AnimalApp/app/src/main/res/layout/activity_home.xml" value="0.31259720062208396" />
+        <entry key="..\:/AnimalApp/app/src/main/res/layout/activity_home.xml" value="0.22" />
         <entry key="..\:/AnimalApp/app/src/main/res/layout/activity_main.xml" value="0.15" />
         <entry key="..\:/AnimalApp/app/src/main/res/layout/fr_animal_detail_screen.xml" value="0.15" />
-        <entry key="..\:/AnimalApp/app/src/main/res/layout/fragment_animal_listing.xml" value="0.15" />
+        <entry key="..\:/AnimalApp/app/src/main/res/layout/fragment_animal_listing.xml" value="0.25" />
         <entry key="..\:/AnimalApp/app/src/main/res/layout/li_animal.xml" value="0.25" />
       </map>
     </option>

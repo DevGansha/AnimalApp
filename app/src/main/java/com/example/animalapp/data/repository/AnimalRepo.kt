@@ -3,6 +3,7 @@ package com.example.animalapp.data.repository
 import com.example.animalapp.data.local.AnimalFavDao
 import com.example.animalapp.data.local.entity.AnimalDetailTable
 import com.example.animalapp.data.local.entity.BreedTable
+import com.example.animalapp.data.local.relations.AnimalAndBreed
 import com.example.animalapp.data.model.AnimalDetail
 import com.example.animalapp.data.remote.AnimalService
 import kotlinx.coroutines.Dispatchers
@@ -37,7 +38,7 @@ class AnimalRepo @Inject constructor(
         animalFavDao.getBreedId(breed_id)
     }
 
-
-
-
+    suspend fun getAllFavourites(): Array<AnimalAndBreed> = withContext(Dispatchers.IO){
+        animalFavDao.getALlFavourites()
+    }
 }

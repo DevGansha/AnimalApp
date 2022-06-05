@@ -1,11 +1,13 @@
 package com.example.animalapp.ui.animalListing
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toolbar
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.example.animalapp.R
@@ -19,13 +21,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AnimalListingFragment : Fragment(), RecyclerViewHomeClickListener{
 
+    var fav_state = 0
     val animalsListingViewModels: AnimalListingViewModel by viewModels()
     lateinit var fragmentAnimalListingBinding: FragmentAnimalListingBinding
     private val animalsAdapter: AnimalsAdapter by lazy { AnimalsAdapter(requireContext(), this) }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,24 +44,47 @@ class AnimalListingFragment : Fragment(), RecyclerViewHomeClickListener{
         }
         animalsListingViewModels.fetchAnimals()
         observeUI()
+
+        fragmentAnimalListingBinding.fabRefresh.setOnClickListener {
+            if(fav_state == 0){
+                fav_state = 1
+                fragmentAnimalListingBinding.fabRefresh.setImageResource(R.mipmap.white_heart)
+                animalsListingViewModels.fetchAnimals()
+            }else {
+                fav_state = 0
+                fragmentAnimalListingBinding.fabRefresh.setImageResource(R.mipmap.heart_filled)
+                animalsListingViewModels.getAllFavourites()
+            }
+        }
+
+        fragmentAnimalListingBinding.fabNewAnimal.setOnClickListener {
+
+        }
     }
 
     fun observeUI(){
-         animalsListingViewModels.animalList.observe(viewLifecycleOwner){
+        animalsListingViewModels.animalList.observe(viewLifecycleOwner){
             when(it){
                 is Resource.Success -> {
                     fragmentAnimalListingBinding.progress.visibility = View.GONE
+                    fragmentAnimalListingBinding.recyclerView.visibility = View.VISIBLE
+                    fragmentAnimalListingBinding.errorTxt.visibility = View.GONE
+
                     val data = it.data
-                    animalsAdapter.submitList(data!!)
+                    animalsAdapter.submitList(data!!, fav_state)
                 }
                 is Resource.Error -> {
                     fragmentAnimalListingBinding.progress.visibility = View.GONE
                     it.message?.let { message ->
-                        context?.toast(message)
+                        fragmentAnimalListingBinding.recyclerView.visibility = View.GONE
+                        fragmentAnimalListingBinding.errorTxt.visibility = View.VISIBLE
+                        fragmentAnimalListingBinding.errorTxt.text = message
                     }
                 }
 
                 is Resource.Loading -> {
+                    fragmentAnimalListingBinding.recyclerView.visibility = View.GONE
+                    fragmentAnimalListingBinding.errorTxt.visibility = View.GONE
                     fragmentAnimalListingBinding.progress.visibility = View.VISIBLE
                 }
             }

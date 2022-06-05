@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.animalapp.data.local.entity.AnimalDetailTable
 import com.example.animalapp.data.local.entity.BreedTable
 import com.example.animalapp.data.model.AnimalDetail
+import com.example.animalapp.data.model.Breed
 import com.example.animalapp.data.repository.AnimalRepo
 import com.example.animalapp.util.Resource
 import com.example.animalapp.util.hasInternetConnection
@@ -77,12 +78,57 @@ class AnimalListingViewModel  @Inject constructor(
                imageUrl = animalDetail.imageUrl,
                kind = animalDetail.kind,
                age = animalDetail.age,
-               breed = animalBreed )
+               breed = breedId )
 
            animalDetailTable.let {
-               //val sucess : Long =
                animalRepo.saveAnimalAsFav(it)
            }
        }
+    }
+
+    fun getAllFavourites(){
+        animalList.postValue(Resource.Loading())
+
+        viewModelScope.launch {
+            try {
+                if (hasInternetConnection(context)) {
+                    val response = animalRepo.getAllFavourites()
+
+                    if (response.size == 0) {
+                        animalList.postValue(Resource.Error("No Data Found"))
+                    } else {
+
+                        var animalDetailLst: MutableList<AnimalDetail> = mutableListOf()
+
+                        response.forEach {
+                            animalDetailLst.add(
+                                AnimalDetail(
+                                    id = it.animalDetailTable.id,
+                                    name = it.animalDetailTable.name,
+                                    kind = it.animalDetailTable.kind,
+                                    description = it.animalDetailTable.description,
+                                    imageUrl = it.animalDetailTable.imageUrl,
+                                    breed = Breed(
+                                        it.breedTable.id,
+                                        description = it.breedTable.description,
+                                        name = it.breedTable.name
+                                    ),
+                                    age = it.animalDetailTable.age
+                                )
+                            )
+                        }
+                        animalList.postValue(Resource.Success(animalDetailLst.toTypedArray()))
+                    }
+                }
+                else{
+                    animalList.postValue(Resource.Error("No Internet Connection"))
+                }
+            }catch (ex: Exception) {
+                when (ex) {
+                    is IOException -> animalList.postValue(Resource.Error("Network Failure " + ex.localizedMessage))
+                    else -> animalList.postValue(Resource.Error("Conversion Error"))
+                }
+            }
+        }
     }
 }

@@ -7,6 +7,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/homeToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@string/app_name"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/purple_700"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <ImageButton
+                android:id="@+id/fabRefresh"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@mipmap/white_heart"
+                android:backgroundTint="@android:color/transparent"
+                android:layout_gravity="right" />
+
+            <ImageButton
+                android:id="@+id/fabNewAnimal"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@mipmap/ic_new"
+                android:backgroundTint="@android:color/transparent"
+                android:layout_gravity="right"
+                app:tint="@color/white" />
+
+        </androidx.appcompat.widget.Toolbar>
+
         <ProgressBar
             android:visibility="gone"
             android:id="@+id/progress"
@@ -15,17 +43,33 @@
             android:foregroundGravity="center"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeToolbar"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_centerInParent="true"/>
 
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/errorTxt"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="Error"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeToolbar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:clipToPadding="false"
             android:scrollbars="vertical"
             app:spanCount="2"
+            app:layout_constraintTop_toBottomOf="@+id/homeToolbar"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

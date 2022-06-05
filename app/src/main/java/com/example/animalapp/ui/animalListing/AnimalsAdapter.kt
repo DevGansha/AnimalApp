@@ -15,6 +15,7 @@ class AnimalsAdapter(val context: Context, val recyclerViewHome: RecyclerViewHom
 
     private lateinit var recyclerView: RecyclerView
     var items: Array<AnimalDetail> = arrayOf()
+    var favSelected : Int = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -30,6 +31,10 @@ class AnimalsAdapter(val context: Context, val recyclerViewHome: RecyclerViewHom
                 itemView.tag = item
             }
         }
+
+//        if(favSelected == 1){
+//            holder.binding.fabFav.setImageResource(R.mipmap.heart_filled)
+//        }
 
         holder.itemView.setOnClickListener {
             recyclerViewHome.clickOnItem(
@@ -53,9 +58,10 @@ class AnimalsAdapter(val context: Context, val recyclerViewHome: RecyclerViewHom
         return items.size
     }
 
-    fun submitList(itemList: Array<AnimalDetail>){
+    fun submitList(itemList: Array<AnimalDetail>, fav_selected: Int){
         //items.addAll(itemList)
         items = itemList
+        favSelected = fav_selected
         notifyDataSetChanged()
     }
 
